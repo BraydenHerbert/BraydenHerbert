@@ -1,1 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brayden Smith</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            padding: 3rem 2rem;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+        .hero img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            margin-right: 1.5rem;
+            border: 4px solid #fff;
+            object-fit: cover;
+        }
+        .bio {
+            max-width: 600px;
+        }
+        .bio h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .bio p {
+            margin: 0.5rem 0 0;
+            font-size: 1.2rem;
+            color: #555;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #ffffff;
+            padding: 1rem 0;
+            border-bottom: 1px solid #d2d2d7;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        nav a {
+            color: #1d1d1f;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #0071e3;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 4rem 2rem;
+        }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .image-container {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .image-container:hover {
+            transform: translateY(-10px);
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            display: block;
+        }
+        .dropdown-content {
+            display: none;
+            padding: 1rem;
+            background-color: #ffffff;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+        }
+        .dropdown-content p {
+            margin: 0;
+            font-size: 1rem;
+            color: #333;
+        }
+        .experience-container, .education-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .experience-card, .education-card {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .experience-image, .education-image {
+            width: 150px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 1.5rem;
+        }
+        .experience-text, .education-text {
+            text-align: left;
+        }
+        .experience-text h3, .education-text h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        .experience-text p, .education-text p {
+            margin: 0.5rem 0 0;
+            font-size: 1rem;
+            color: #555;
+        }
+        .experience-text .dates, .education-text .dates {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        footer {
+            background: #ffffff;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+            color: #6e6e73;
+        }
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-animation.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <img src="" alt="Profile Picture">
+            <div class="bio">
+                <h1>Brayden Herbert</h1>
+                <p>Passionate engineering student at the University of Waterloo with hands-on experience in PCB design, sensor development, embedded systems, and circuit analysis</p>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#footer">Contact</a>
+    </nav>
+    <div class="container">
+        <section id="projects" class="section scroll-animation.show">
+            <h2 class="section-title">Projects</h2>
+            <div class="grid-container">
+                <div class="image-container" onclick="toggleDropdown('dropdown1')">
+                    <img src="" alt="PCB Design 1">
+                </div>
+                <div class="image-container" onclick="toggleDropdown('dropdown2')">
+                    <img src="" alt="PCB Design 2">
+                </div>
+                <div class="image-container" onclick="toggleDropdown('dropdown3')">
+                    <img src="" alt="PCB Design 3">
+                </div>
+            </div>
+            <div id="dropdown1" class="dropdown-content">
+                <h4>Hardware-In-the-Loop Power Supply PCB</h4>
+                <p>Designed a 4 layer PCB for powering hardware-in-the-loop testing, manging power distribution across 6 vehicle systems. Integrated voltage regulators, logic switches, and current sensors controlled by an ESP32 using Altium and LTspice.</p>
+            </div>
+            <div id="dropdown2" class="dropdown-content">
+                <h4>6502-based 8-Bit Computer</h4>
+                <p>Built a functional 8-bit computer with the 6502 processor, including assembly programming and hardware design based off of Ben Eater's design. Integrated circuits for memory management, clock generation, address decoding, and I/O interfacing.</p>
+            </div>
+            <div id="dropdown3" class="dropdown-content">
+                <h4>Smart Medication Monitoring PCB</h4>
+                <p>Designed a non-contact liquid-level monitoring device using a 4-channel I2C capacitance-to-digital conversion system, based on an ESP32 MCU with USB-C charging, and an integrated web server for remote monitoring.</p>
+            </div>
+        </section>
+        <section id="experience" class="section scroll-animation">
+            <h2 class="section-title">Experience</h2>
+            <div class="experience-container">
+                <div class="experience-card">
+                    <img class="experience-image" src="nrc-partner-logo_e (1).webp" alt="NRC Canada">
+                    <div class="experience-text">
+                        <h3>Electrical Engineering Intern - National Research Council Canada</h3>
+                        <p class="dates">May 2023 - August 2023</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <img class="experience-image" src="" alt="University of Waterloo Formula Electric">
+                    <div class="experience-text">
+                        <h3>Electrical Engineer - University of Waterloo Formula Electric</h3>
+                        <p class="dates">September 2022 - Present</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <img class="experience-image" src="" alt="Bombardier Recreational Products">
+                    <div class="experience-text">
+                        <h3>Predictive Engineering Intern - Bombardier Recreational Products</h3>
+                        <p class="dates">January 2023 - April 2023</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <img class="experience-image" src="" alt="Meta Materials">
+                    <div class="experience-text">
+                        <h3>R&D Engineering Intern - Meta Materials</h3>
+                        <p class="dates">May 2022 - August 2022</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <img class="experience-image" src="" alt="Meta Materials">
+                    <div class="experience-text">
+                        <h3>Research Assistant - Smart Materials for Advanced Robotic Technologies</h3>
+                        <p class="dates">May 2022 - August 2022</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="education" class="section scroll-animation">
+            <h2 class="section-title">Education</h2>
+            <div class="education-container">
+                <div class="education-card">
+                    <img class="education-image" src="" alt="University of Waterloo">
+                    <div class="education-text">
+                        <h3>Bachelor of Applied Science in Nanotechnology Engineering</h3>
+                        <p>University of Waterloo</p>
+                        <p class="dates">September 2022 - April 2027</p>
+                        <p>Relevant Coursework: Linear Circuits, Electromagnetism, Semiconductor Physics and Devices, Programming</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<footer id="footer">
+    <p>Reach out on LinkedIn at <a href="https://www.linkedin.com/in/braydenherbert/">linkedin.com/in/braydenherbert/</a></p>
+</footer>
+    
+
+
+    <script>
+        function toggleDropdown(id) {
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+            dropdowns.forEach(dropdown => {
+                if (dropdown.id === id) {
+                    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                } else {
+                    dropdown.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('scroll', function () {
+            const elements = document.querySelectorAll('.scroll-animation');
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (position < windowHeight - 100) {
+                    element.classList.add('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
 
