@@ -3,473 +3,774 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Brayden Herbert</title>
+  <title>Brayden Herbert — Hardware & Embedded Systems</title>
+  <meta name="description" content="Engineering student at the University of Waterloo building reliable hardware across PCB design, embedded systems, and sensor development." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* ───────── Apple-inspired design tokens ───────── */
+    :root {
+      --bg:           #ffffff;
+      --bg-alt:       #f5f5f7;
+      --bg-card:      #ffffff;
+      --text:         #1d1d1f;
+      --text-muted:   #6e6e73;
+      --text-subtle:  #86868b;
+      --border:       rgba(0, 0, 0, 0.08);
+      --border-soft:  rgba(0, 0, 0, 0.05);
+      --accent:       #0071e3;
+      --accent-hover: #0077ed;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+      --shadow-md:    0 8px 24px rgba(0,0,0,0.06);
+      --shadow-lg:    0 24px 48px rgba(0,0,0,0.10);
+      --radius-xl:    24px;
+      --radius-lg:    18px;
+      --radius-md:    12px;
+      --font:         "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --ease:         cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #f5f5f7;
-      color: #1d1d1f;
-      text-align: center;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.47;
       overflow-x: hidden;
     }
-    header, nav, .container, footer {
-      width: 100%;
-      box-sizing: border-box;
-    }
-    h1, h2, h3, h4, p {
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #ffffff;
-      padding: 3rem 2rem;
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #333;
-      flex-wrap: wrap;
-    }
-    .hero {
-      display: flex;
-      align-items: center;
-      text-align: left;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .hero img {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      margin: 1rem;
-      border: 4px solid #fff;
-      object-fit: cover;
-    }
-    .bio {
-      max-width: 600px;
-      padding: 1rem;
-    }
-    .bio h1 {
-      font-size: 2.5rem;
-    }
-    .bio p {
-      margin-top: 0.5rem;
-      font-size: 1.15rem;
-      color: #555;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      background: #ffffff;
-      padding: 1rem 0;
-      border-bottom: 1px solid #d2d2d7;
+    h1, h2, h3, h4, p { margin: 0; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ───────── Sticky translucent nav ───────── */
+    .nav {
       position: sticky;
       top: 0;
       z-index: 100;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border-soft);
     }
-    nav a {
-      color: #1d1d1f;
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 22px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
       text-decoration: none;
-      padding: 0.5rem 1rem;
-      font-weight: 500;
     }
-    nav a:hover {
-      color: rgba(0, 0, 0, 0.5);
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text);
+      opacity: 0.85;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
     }
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 2rem;
-      text-align: left;
+    .nav-links a:hover { opacity: 1; }
+
+    /* ───────── Hero ───────── */
+    .hero {
+      padding: 120px 22px 100px;
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-img {
+      width: 168px;
+      height: 168px;
+      margin: 0 auto 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease);
+    }
+    .hero-img:hover { transform: scale(1.03); box-shadow: var(--shadow-lg); }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .hero h1 {
+      font-size: clamp(48px, 7.5vw, 88px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 22px;
+      background: linear-gradient(180deg, #1d1d1f 0%, #4a4a4d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .tagline {
+      font-size: clamp(19px, 2.2vw, 24px);
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      font-weight: 400;
+    }
+
+    /* ───────── Sections ───────── */
+    section {
+      padding: 110px 22px;
+    }
+    section.alt { background: var(--bg-alt); }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-subtle);
+      margin-bottom: 14px;
     }
     .section-title {
-    font-size: 2rem;
-    margin: 0 auto 2rem;
-    text-align: center;   
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 56px;
     }
 
-    section {
-    margin-bottom: 2rem;  
-    }    
+    /* ───────── Projects ───────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .project-image {
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, #fafafa 0%, #eef0f3 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      overflow: hidden;
+    }
+    .project-image.dual { gap: 14px; }
+    .project-image.dual img { max-width: calc(50% - 7px); }
+    .project-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      transition: transform 0.6s var(--ease);
+    }
+    .project-card:hover .project-image img { transform: scale(1.04); }
+    .project-card.wide { grid-column: 1 / -1; }
+    .project-card.wide .project-image { aspect-ratio: 21 / 9; }
+    .project-card.wide .project-title { font-size: 28px; }
+    .project-card.wide .project-desc { font-size: 16px; max-width: 78ch; }
+    .project-body { padding: 28px 30px 32px; }
+    .project-note {
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-subtle);
+    }
+    .project-title {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.018em;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
 
-    .scroll-animation {
+    /* ───────── Skills ───────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .skill-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      padding: 28px 28px 30px;
+      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    }
+    .skill-group:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .skill-group h3 {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
+    }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      color: var(--text);
+      border: 1px solid var(--border-soft);
+    }
+    section.alt .skill-group { background: #ffffff; }
+    section.alt .chip { background: #f5f5f7; }
+
+    /* ───────── Articles ───────── */
+    .articles-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .article-card {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+      text-decoration: none;
+      color: inherit;
+    }
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .article-image {
+      overflow: hidden;
+      min-height: 280px;
+      background: var(--bg-alt);
+    }
+    .article-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease);
+    }
+    .article-card:hover .article-image img { transform: scale(1.05); }
+    .article-body {
+      padding: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .article-meta {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .article-card h3 {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.018em;
+      line-height: 1.22;
+      margin-bottom: 16px;
+    }
+    .article-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .article-date {
+      font-size: 13px;
+      color: var(--text-subtle);
+    }
+
+    /* ───────── Experience ───────── */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .experience-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 22px 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    .experience-row:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-md);
+    }
+    section.alt .experience-row { background: #ffffff; }
+    .experience-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: var(--bg-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 8px;
+      flex-shrink: 0;
+    }
+    section.alt .experience-logo { background: #f5f5f7; }
+    .experience-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .experience-info h3 {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .experience-info .company {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .experience-dates {
+      color: var(--text-subtle);
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ───────── Education ───────── */
+    .education-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 36px;
+      align-items: start;
+      box-shadow: var(--shadow-sm);
+    }
+    section.alt .education-card { background: #ffffff; }
+    .education-logo {
+      width: 88px;
+      height: 88px;
+      border-radius: 18px;
+      background: var(--bg-alt);
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    section.alt .education-logo { background: #f5f5f7; }
+    .education-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .education-card h3 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.018em;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .education-card .specialization {
+      color: var(--text-muted);
+      font-size: 17px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+    .education-card .school {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .education-card .dates {
+      color: var(--text-subtle);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+    .education-card .coursework {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ───────── Footer / Contact ───────── */
+    footer {
+      padding: 110px 22px 80px;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border-soft);
+      text-align: center;
+    }
+    .footer-cta {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 14px;
+      background: linear-gradient(180deg, #1d1d1f 0%, #4a4a4d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-sub {
+      color: var(--text-muted);
+      font-size: 18px;
+      margin-bottom: 36px;
+      letter-spacing: -0.005em;
+    }
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
+      background: var(--text);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 12px 28px;
+      border-radius: 999px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .footer-link:hover { background: #2d2d2f; transform: translateY(-1px); }
+    .footer-link::after { content: " →"; }
+    .footer-meta {
+      margin-top: 60px;
+      color: var(--text-subtle);
+      font-size: 12px;
+    }
+
+    /* ───────── Reveal-on-scroll ───────── */
+    .reveal {
       opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      transform: translateY(28px);
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
     }
-    .scroll-animation.show {
+    .reveal.in {
       opacity: 1;
       transform: translateY(0);
     }
-    .grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);  
-    grid-auto-rows: auto;               
-    gap: 1.5rem;
-    justify-items: center;                
+    .reveal.delay-1 { transition-delay: 0.08s; }
+    .reveal.delay-2 { transition-delay: 0.16s; }
+    .reveal.delay-3 { transition-delay: 0.24s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
     }
 
-    .project-item {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-    .image-container {
-    background: linear-gradient(135deg, #ffffff 0%, #f7f7f9 100%);
-    border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-    padding: 0.5rem;            
-    overflow: hidden;
-    cursor: pointer;
-    aspect-ratio: 16 / 9;
-    max-width: 500px;
-    margin: 0 auto;
-    transition: 
-        transform 0.25s ease-in-out,
-        box-shadow 0.25s ease-in-out;
-    }
-
-    .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;       
-    display: block;
-    transition: transform 0.25s ease-in-out;
-    }
-
-    .image-container:hover {
-    transform: scale(1.02);      
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-    }
-    
-    .image-container:hover img {
-    transform: scale(1.01);      
-    }
-    .dropdown-content {
-      display: none;
-      background-color: #ffffff;
-      padding: 1rem 1.25rem;
-      margin-top: 0.75rem;
-      border: 1px solid #d2d2d7;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      text-align: left;
-    }
-    .dropdown-content.show {
-      display: block;
-    }
-    .dropdown-content h4 {
-    color: #000;        
-    }
-    .dropdown-content p {
-      line-height: 1.5;
-      color: #333;
-    }
-    .experience-container, .education-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .experience-card, .education-card {
-      display: flex;
-      align-items: center;
-      background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease-in-out;
-      flex-wrap: wrap;
-    }
-    .experience-image, .education-image {
-      width: 120px;
-      height: auto;
-      border-radius: 5px;
-      margin-right: 1rem;
-    }
-    .experience-text, .education-text {
-      flex: 1;
-      text-align: left;
-    }
-    .experience-text h3, .education-text h3 {
-      font-size: 1.2rem;
-    }
-    .experience-text p, .education-text p {
-      margin-top: 0.5rem;
-      font-size: 1rem;
-      color: #555;
-    }
-    .experience-text .dates, .education-text .dates {
-      font-size: 0.9rem;
-      color: #777;
-    }
-    .articles-container {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      margin-top: 2rem;
-    }
-    .articles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .article-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1rem;
-    border-radius: 10px;
-    background: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    }
-
-    .article-card img {
-    max-width: 500px;      
-    width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-    }
-
-    .article-info {
-    padding: 0 0.5rem;
-    }
-
-    .article-info h4 {
-    font-size: 1.1rem;
-    color: #1d1d1f;
-    margin-bottom: 0.5rem;
-    }
-
-    .article-info p {
-    font-size: 0.95rem;
-    color: #555;
-    line-height: 1.5;
-    margin-bottom: 0.75rem;
-    }
-
-    .article-meta span {
-    font-size: 0.85rem;
-    color: #777;
-    }
-
-
-    footer {
-      background: #ffffff;
-      padding: 2rem 0;
-      font-size: 0.9rem;
-      color: #6e6e73;
-      text-align: center;
-    }
-
-
-    @media (max-width: 768px) {
-      header { font-size: 2rem; padding: 2rem 1rem; }
-      .hero { flex-direction: column; text-align: center; }
-      .hero img { margin: 1rem auto; }
-      .bio { padding: 0 1rem; text-align: center; }
-      .experience-card, .education-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+    /* ───────── Responsive ───────── */
+    @media (max-width: 860px) {
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 12px; }
+      .nav-brand { font-size: 14px; }
+      .hero { padding: 80px 22px 60px; }
+      .hero-img { width: 140px; height: 140px; margin-bottom: 32px; }
+      section { padding: 72px 22px; }
+      .section-title { margin-bottom: 36px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.wide .project-image { aspect-ratio: 16 / 10; }
+      .project-card.wide .project-title { font-size: 22px; }
+      .project-card.wide .project-desc { font-size: 15px; }
+      .article-card { grid-template-columns: 1fr; }
+      .article-image { min-height: 220px; }
+      .article-body { padding: 30px; }
+      .article-card h3 { font-size: 22px; }
+      .education-card {
+        grid-template-columns: 1fr;
+        text-align: left;
+        padding: 32px;
+        gap: 22px;
       }
-      .experience-image, .education-image { margin: 0 0 1rem 0; }
-      nav { flex-direction: column; }
-      nav a { padding: 0.75rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .nav-inner { justify-content: center; }
+      .nav-brand { font-size: 15px; }
+      .experience-row {
+        grid-template-columns: 56px 1fr;
+        gap: 16px;
+        padding: 18px 20px;
+      }
+      .experience-logo { width: 56px; height: 56px; }
+      .experience-dates {
+        grid-column: 1 / -1;
+        margin-left: 72px;
+        margin-top: 6px;
+      }
+      .project-body { padding: 24px 22px 28px; }
+      .article-body { padding: 26px 22px; }
+      footer { padding: 80px 22px 60px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="hero">
-      <img src="Profile.jpg" alt="Profile Picture">
-      <div class="bio">
-        <h1>Brayden Herbert</h1>
-        <p>Engineering student at the University of Waterloo with experience in PCB design, embedded systems, sensor development, and hardware testing. Focused on building reliable hardware that integrates electrical design, sensor technology, and embedded control.</p>
+
+  <!-- ───── Nav ───── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#top">Brayden Herbert</a>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#articles">Articles</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
-  </header>
-
-  <nav>
-    <a href="#projects">Projects</a>
-    <a href="#articles">Articles</a>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#footer">Contact</a>
   </nav>
 
-  <div class="container">
-    <section id="projects" class="section scroll-animation show">
-      <h2 class="section-title">Projects</h2>
-      <div class="grid-container">
-        <div class="project-item">
-          <div class="image-container" onclick="toggleDropdown('dropdown1')">
-            <img src="PCB1.png" alt="PCB Design 1">
-          </div>
-          <div id="dropdown1" class="dropdown-content">
-            <h4>Hardware-in-the-Loop Power Supply PCB</h4>
-            <p>Designed a 4-layer PCB for powering hardware-in-the-loop testing, managing power distribution across six vehicle systems. Integrated voltage regulators, logic switches, and current sensors controlled by an ESP32 using Altium and LTspice.</p>
-          </div>
-        </div>
+  <!-- ───── Hero ───── -->
+  <header id="top" class="hero">
+    <div class="hero-img reveal">
+      <img src="Profile.jpg" alt="Brayden Herbert">
+    </div>
+    <h1 class="reveal delay-1">Brayden Herbert.</h1>
+    <p class="tagline reveal delay-2">Engineering student at the University of Waterloo with experience in PCB design, embedded systems, sensor development, and hardware testing. Focused on building reliable hardware that integrates electrical design, sensor technology, and embedded control.</p>
+  </header>
 
-        <div class="project-item">
-          <div class="image-container" onclick="toggleDropdown('dropdown2')">
-            <img src="6502.jpg" alt="6502-based 8-Bit Computer">
+  <!-- ───── Projects ───── -->
+  <section id="projects" class="alt">
+    <div class="container">
+      <p class="eyebrow reveal">Selected work</p>
+      <h2 class="section-title reveal delay-1">Projects.</h2>
+      <div class="projects-grid">
+        <article class="project-card wide reveal">
+          <div class="project-image dual">
+            <img src="CAM_FRONT.png" alt="Smart camera PCB, front">
+            <img src="CAM_BACK.png" alt="Smart camera PCB, back">
           </div>
-          <div id="dropdown2" class="dropdown-content">
-            <h4>6502-based 8-Bit Computer</h4>
-            <p>Built a functional 8-bit computer with the 6502 processor, including assembly programming and hardware design based on Ben Eater's design. Integrated circuits for memory management, clock generation, and address decoding.</p>
+          <div class="project-body">
+            <h3 class="project-title">Battery-Powered AI Smart Camera</h3>
+            <p class="project-desc">Lead designer for the architecture and 10-layer controlled-impedance PCB of a battery-powered AI smart camera. The board carries high-speed MIPI CSI-2, a dual-MCU and dual-camera architecture, two-way audio, and a low-power sensor stack. Designed a dual-battery power path drawing roughly 0.75&nbsp;mA on GPIO-interrupt wake with WLAN active.</p>
+            <p class="project-note">Traces are hidden in these renders under NDA.</p>
           </div>
-        </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-image"><img src="ECU.png" alt="Robotic platform ECU PCB"></div>
+          <div class="project-body">
+            <h3 class="project-title">Robotic Multi-Sensor Platform ECU</h3>
+            <p class="project-desc">Designed the sensor interface electronics and ECU for a robotic multi-sensor platform, using FPC interconnects between the sensor boards and the controller.</p>
+            <p class="project-note">Traces are hidden in this render under NDA.</p>
+          </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-image"><img src="QDBoard.png" alt="Quantum Dot Transimpedance Amplifier PCB"></div>
+          <div class="project-body">
+            <h3 class="project-title">Quantum Dot Transimpedance Amplifier PCB</h3>
+            <p class="project-desc">Designed a dual transimpedance amplifier PCB to read µA-scale photocurrent from quantum dot fluorescence. Built around the OPA2377 with an 8.3&nbsp;kΩ feedback resistor and 144&nbsp;pF compensation, set for a 133&nbsp;kHz bandwidth. Characterized gain, bandwidth, and noise in LTspice, reaching 0.79&nbsp;nA RMS input-referred noise across the band, thermal-limited at low frequency and op-amp-and-capacitance-limited near the band edge.</p>
+          </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-image"><img src="Signal.jpg" alt="Signal Analyzer and Generator PCB"></div>
+          <div class="project-body">
+            <h3 class="project-title">Signal Analyzer and Generator PCB</h3>
+            <p class="project-desc">Designed a USB-powered, single-channel mixed-signal PCB in KiCad for low-frequency signal analysis and generation using an STM32. Routed high-speed USB with 90&nbsp;Ω impedance control, differential pair routing, and length matching. Used switch-mode regulators for digital power and linear LDOs for low-noise analog supply, with an ADC/DAC and analog front-end for generating and receiving signals. Bias generator simulated in LTspice.</p>
+          </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-image"><img src="PCB1.png" alt="HIL Power Supply PCB"></div>
+          <div class="project-body">
+            <h3 class="project-title">Hardware-in-the-Loop Power Supply PCB</h3>
+            <p class="project-desc">Designed a 4-layer PCB for powering hardware-in-the-loop testing, managing power distribution across six vehicle systems. Integrated voltage regulators, logic switches, and current sensors controlled by an ESP32 using Altium and LTspice.</p>
+          </div>
+        </article>
+        <article class="project-card reveal delay-1">
+          <div class="project-image"><img src="6502.jpg" alt="6502 8-bit computer"></div>
+          <div class="project-body">
+            <h3 class="project-title">6502-based 8-Bit Computer</h3>
+            <p class="project-desc">Built a functional 8-bit computer with the 6502 processor, including assembly programming and hardware design based on Ben Eater's design. Integrated circuits for memory management, clock generation, and address decoding.</p>
+          </div>
+        </article>
+        <article class="project-card reveal delay-2">
+          <div class="project-image"><img src="PCB2.png" alt="Smart medication monitoring PCB"></div>
+          <div class="project-body">
+            <h3 class="project-title">Smart Medication Monitoring PCB</h3>
+            <p class="project-desc">Designed a non-contact liquid-level monitoring device using a 4-channel I2C capacitance-to-digital conversion system, based on an ESP32 MCU with USB-C charging and an integrated web server for remote monitoring.</p>
+          </div>
+        </article>
+        <article class="project-card reveal delay-3">
+          <div class="project-image"><img src="Wing.png" alt="Model wing with control system"></div>
+          <div class="project-body">
+            <h3 class="project-title">Model Wing with Electrical Control System</h3>
+            <p class="project-desc">PWM-based control circuitry and firmware to adjust a linear actuator on a 1:5 scale F1 wing.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-        <div class="project-item">
-          <div class="image-container" onclick="toggleDropdown('dropdown3')">
-            <img src="PCB2.png" alt="Smart Medication Monitoring PCB">
+  <!-- ───── Articles ───── -->
+  <section id="articles">
+    <div class="container">
+      <p class="eyebrow reveal">In the press</p>
+      <h2 class="section-title reveal delay-1">Articles.</h2>
+      <div class="articles-stack">
+        <a class="article-card reveal" href="https://www.linkedin.com/posts/national-research-council_nrcelectronics-nrcchallengeaginginplace-discoverthenrc-activity-7333568029097693186-xzC0" target="_blank" rel="noopener">
+          <div class="article-image">
+            <img src="https://media.licdn.com/dms/image/v2/D4E10AQH9ky9ClBGRAA/image-shrink_800/B4EZcYRQtVHQAc-/0/1748458868414?e=2147483647&t=1oyQiTh7lzYA-Xx6v7kDYxD5yRkaZVI4PCUFYqLU9lo&v=beta" alt="Co-op student develops medication adherence tech">
           </div>
-          <div id="dropdown3" class="dropdown-content">
-            <h4>Smart Medication Monitoring PCB</h4>
-            <p>Designed a non-contact liquid-level monitoring device using a 4-channel I2C capacitance-to-digital conversion system, based on an ESP32 MCU with USB-C charging and an integrated web server for remote monitoring.</p>
+          <div class="article-body">
+            <p class="article-meta">National Research Council Canada</p>
+            <h3>Co-op student develops medication adherence tech</h3>
+            <p>Co-op student Brayden Herbert and researchers at our Quantum and Nanotechnologies Research Centre developed medication adherence technologies for the Aging in Place Challenge program. Brayden's research focused on developing and integrating sensors into prototype demonstrators, combining simulation, sensor tech, circuit design, and AI to create novel medication packaging.</p>
+            <span class="article-date">May 28, 2025</span>
           </div>
-        </div>
+        </a>
+        <a class="article-card reveal delay-1" href="https://www.linkedin.com/feed/update/urn:li:share:7447355562293538816/" target="_blank" rel="noopener">
+          <div class="article-image">
+            <img src="IEEE.jpg" alt="2026 IEEE AP-S Industry Application Pitch Competition Finalists">
+          </div>
+          <div class="article-body">
+            <p class="article-meta">IEEE Antennas and Propagation Society</p>
+            <h3>2026 IEEE AP-S Industry Application Pitch Competition Finalist</h3>
+            <p>Co-author on <em>Near-Field Millimeter-Wave Radar Sensing of a Slot-Loaded Dielectric Resonator</em>, selected as one of the Top 10 finalists in the 2026 IEEE AP-S Industry Application Pitch Competition. The competition highlights industry-driven research in antennas and propagation with strong potential for commercialization and societal benefit.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-        <div class="project-item">
-          <div class="image-container" onclick="toggleDropdown('dropdown4')">
-            <img src="Wing.png" alt="Model Wing with Electrical Control System">
+  <!-- ───── Experience ───── -->
+  <section id="experience" class="alt">
+    <div class="container">
+      <p class="eyebrow reveal">Where I've worked</p>
+      <h2 class="section-title reveal delay-1">Experience.</h2>
+      <div class="experience-list">
+        <div class="experience-row reveal">
+          <div class="experience-logo"><img src="Sapir.jpg" alt="Sapir Robotics"></div>
+          <div class="experience-info">
+            <h3>Electrical Engineering Intern</h3>
+            <p class="company">Sapir Robotics</p>
           </div>
-          <div id="dropdown4" class="dropdown-content">
-            <h4>Model Wing with Electrical Control System</h4>
-            <p>PWM-based control circuitry and firmware to adjust a linear actuator on a 1:5 scale F1 wing.</p>
+          <div class="experience-dates">May 2026 — Aug 2026</div>
+        </div>
+        <div class="experience-row reveal">
+          <div class="experience-logo"><img src="Inertia.png" alt="Inertia"></div>
+          <div class="experience-info">
+            <h3>Product Development Engineering Intern</h3>
+            <p class="company">Inertia</p>
           </div>
+          <div class="experience-dates">Jan 2026 — Apr 2026</div>
+        </div>
+        <div class="experience-row reveal">
+          <div class="experience-logo"><img src="UWFE.png" alt="University of Waterloo Formula Electric"></div>
+          <div class="experience-info">
+            <h3>Electrical Engineer</h3>
+            <p class="company">University of Waterloo Formula Electric</p>
+          </div>
+          <div class="experience-dates">Mar 2023 — Feb 2026</div>
+        </div>
+        <div class="experience-row reveal">
+          <div class="experience-logo"><img src="SDLWIDE.jpg" alt="Wireless Sensors and Devices Lab"></div>
+          <div class="experience-info">
+            <h3>Undergraduate Research Assistant</h3>
+            <p class="company">Wireless Sensors and Devices Lab</p>
+          </div>
+          <div class="experience-dates">May 2025 — Dec 2025</div>
+        </div>
+        <div class="experience-row reveal">
+          <div class="experience-logo"><img src="NRC.webp" alt="National Research Council Canada"></div>
+          <div class="experience-info">
+            <h3>Electrical Engineering Intern</h3>
+            <p class="company">National Research Council Canada</p>
+          </div>
+          <div class="experience-dates">Sep 2024 — Apr 2025</div>
+        </div>
+        <div class="experience-row reveal">
+          <div class="experience-logo"><img src="BRP.png" alt="Bombardier Recreational Products"></div>
+          <div class="experience-info">
+            <h3>Predictive Engineering Intern</h3>
+            <p class="company">Bombardier Recreational Products</p>
+          </div>
+          <div class="experience-dates">Jan 2024 — Apr 2024</div>
+        </div>
+        <div class="experience-row reveal">
+          <div class="experience-logo"><img src="Meta.png" alt="Meta Materials"></div>
+          <div class="experience-info">
+            <h3>R&amp;D Engineering Intern</h3>
+            <p class="company">Meta Materials</p>
+          </div>
+          <div class="experience-dates">May 2023 — Aug 2023</div>
+        </div>
+        <div class="experience-row reveal">
+          <div class="experience-logo"><img src="Waterloo.png" alt="University of Waterloo"></div>
+          <div class="experience-info">
+            <h3>Undergraduate Research Assistant</h3>
+            <p class="company">Smart Materials for Advanced Robotic Technologies</p>
+          </div>
+          <div class="experience-dates">Jan 2023 — Apr 2023</div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="articles" class="section scroll-animation show">
-      <h2 class="section-title">Articles</h2>
-      <div class="articles-container">
-        <div class="articles-grid">
-          <div class="article-card">
-            <a href="https://www.linkedin.com/posts/national-research-council_nrcelectronics-nrcchallengeaginginplace-discoverthenrc-activity-7333568029097693186-xzC0" target="_blank" rel="noopener">
-              <img src="https://media.licdn.com/dms/image/v2/D4E10AQH9ky9ClBGRAA/image-shrink_800/B4EZcYRQtVHQAc-/0/1748458868414?e=2147483647&t=1oyQiTh7lzYA-Xx6v7kDYxD5yRkaZVI4PCUFYqLU9lo&v=beta" alt="Co-op student develops medication adherence tech thumbnail">
-            </a>
-            <div class="article-info">
-              <h4>
-                <a href="https://www.linkedin.com/posts/national-research-council_nrcelectronics-nrcchallengeaginginplace-discoverthenrc-activity-7333568029097693186-xzC0" target="_blank" rel="noopener">
-                  Co-op student develops medication adherence tech
-                </a>
-              </h4>
-              <p>Co-op student Brayden Herbert and researchers at our Quantum and Nanotechnologies Research Centre developed medication adherence technologies for the Aging in Place Challenge program. Brayden’s research focused on developing and integrating sensors into prototype demonstrators, combining simulation, sensor tech, circuit design, and AI to create novel medication packaging.</p>
-              <div class="article-meta">
-                <span>National Research Council Canada · 05/28/2025</span>
-              </div>
-            </div>
-          </div>
+  <!-- ───── Education ───── -->
+  <section id="education">
+    <div class="container">
+      <p class="eyebrow reveal">Studying</p>
+      <h2 class="section-title reveal delay-1">Education.</h2>
+      <div class="education-card reveal delay-2">
+        <div class="education-logo"><img src="Waterloo.png" alt="University of Waterloo"></div>
+        <div>
+          <h3>Bachelor of Applied Science in Nanotechnology Engineering</h3>
+          <p class="specialization">Nanoelectronics Specialization</p>
+          <p class="school">University of Waterloo</p>
+          <p class="dates">September 2022 — April 2027</p>
+          <p class="coursework">Relevant coursework: Linear Circuits, Electromagnetism, Semiconductor Physics and Devices, Programming.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="experience" class="section scroll-animation">
-      <h2 class="section-title">Experience</h2>
-      <div class="experience-container">
-        <div class="experience-card">
-          <img class="experience-image" src="Inertia.png" alt="Inertia">
-          <div class="experience-text">
-            <h3>Product Development Engineering Intern - Inertia</h3>
-            <p class="dates">January 2026 - April 2026</p>
-          </div>
-        </div>
-        <div class="experience-card">
-          <img class="experience-image" src="UWFE.png" alt="University of Waterloo Formula Electric">
-          <div class="experience-text">
-            <h3>Electrical Engineer - University of Waterloo Formula Electric</h3>
-            <p class="dates">March 2023 - Febuary 2026</p>
-          </div>
-        </div>
-        <div class="experience-card">
-          <img class="experience-image" src="SDLWIDE.jpg" alt="WSDL">
-          <div class="experience-text">
-            <h3>Undergraduate Research Assistant - Wireless Sensors and Devices Lab</h3>
-            <p class="dates">May 2025 - December 2025</p>
-          </div>
-        </div>
-        <div class="experience-card">
-          <img class="experience-image" src="NRC.webp" alt="NRC Canada">
-          <div class="experience-text">
-            <h3>Electrical Engineering Intern - National Research Council Canada</h3>
-            <p class="dates">September 2024 - April 2025</p>
-          </div>
-        </div>
-        <div class="experience-card">
-          <img class="experience-image" src="BRP.png" alt="Bombardier Recreational Products">
-          <div class="experience-text">
-            <h3>Predictive Engineering Intern - Bombardier Recreational Products</h3>
-            <p class="dates">January 2024 - April 2024</p>
-          </div>
-        </div>
-        <div class="experience-card">
-          <img class="experience-image" src="Meta.png" alt="Meta Materials">
-          <div class="experience-text">
-            <h3>R&D Engineering Intern - Meta Materials</h3>
-            <p class="dates">May 2023 - August 2023</p>
-          </div>
-        </div>
-        <div class="experience-card">
-          <img class="experience-image" src="Waterloo.png" alt="University of Waterloo">
-          <div class="experience-text">
-            <h3>Research Assistant - Smart Materials for Advanced Robotic Technologies</h3>
-            <p class="dates">January 2023 - April 2023</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="education" class="section scroll-animation">
-      <h2 class="section-title">Education</h2>
-      <div class="education-container">
-        <div class="education-card">
-          <img class="education-image" src="Waterloo.png" alt="University of Waterloo">
-          <div class="education-text">
-            <h3>Bachelor of Applied Science in Nanotechnology Engineering</h3>
-            <h4>Nanoelectronics Specialization</h4>
-            <p>University of Waterloo</p>
-            <p class="dates">September 2022 - April 2027</p>
-            <p>Relevant Coursework: Linear Circuits, Electromagnetism, Semiconductor Physics and Devices, Programming</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <footer id="footer">
-    <p>Connect with me at <a href="https://www.linkedin.com/in/braydenherbert/" target="_blank">linkedin.com/in/braydenherbert/</a></p>
+  <!-- ───── Footer / Contact ───── -->
+  <footer id="contact">
+    <h2 class="footer-cta reveal">Let's build something.</h2>
+    <p class="footer-sub reveal delay-1">Open to conversations about hardware, embedded systems, and research.</p>
+    <a class="footer-link reveal delay-2" href="https://www.linkedin.com/in/braydenherbert/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+    <p class="footer-meta">© <span id="year"></span> Brayden Herbert</p>
   </footer>
 
   <script>
-    function toggleDropdown(id) {
-      document.querySelectorAll('.dropdown-content').forEach(drop => {
-        if (drop.id === id) {
-          drop.classList.toggle('show');
-        } else {
-          drop.classList.remove('show');
-        }
-      });
-    }
+    // Auto-update year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    document.addEventListener('scroll', function () {
-      document.querySelectorAll('.scroll-animation').forEach(element => {
-        const pos = element.getBoundingClientRect().top;
-        if (pos < window.innerHeight - 100) {
-          element.classList.add('show');
+    // Scroll-triggered reveals via IntersectionObserver
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
         }
       });
-    });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>
 </body>
 </html>
